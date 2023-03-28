@@ -7,7 +7,7 @@ This is my first blog post!
 
 Recently, I received a new Thinkpad neo 14 (Intel version) from my supervisor.
 Suffering from setting up a development environment on Windows, I installed Arch
-Linux and noted down my setup steps.
+Linux and noted down my setup steps in Markdown.
 
 Taking notes wasn't a big thing, but I had no idea how to share my notes. At
 first, I was about to build a beautiful PDF document with LaTeX but soon
@@ -17,8 +17,8 @@ social media. However, I didn't find any platform on which I would be willing to
 write something.
 
 Finally, I started this simple website to post my notes and thoughts. I chose
-Deno Blog as I wanted to try Deno stuffs since I knew the Deno project. I also
+Deno Blog as I've wanted to try Deno stuff since I knew the Deno project. I also
 found that, compared to Node stuff, Deno Blog is easy to set up and deploy.
 
 That is why I started to write blog posts and deployed such a website, and so my
-next blog post is about my steps to install Arch Linux on a laptop.
+next blog post will be about my steps to install Arch Linux on a laptop.
