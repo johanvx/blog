@@ -7,40 +7,52 @@ tags:
 
 <!-- Explanation of why I decided to install Arch Linux, or rather, why I decided to install a GNU/Linux system on my computer for work. -->
 
+## About the machine
+
+Thinkpad neo 14 (Intel version)
+
+- CPU: Intel Core i5-12500H
+- RAM: 16 GB
+- Storage: 512 GB SSD
+
 ## Table of contents
 
--   [Prologue](#prologue)
--   [Pre-installation](#pre-installation)
-    -   [Set the console keyboard layout](#set-the-console-keyboard-layout)
-    -   [Verify the boot mode](#verify-the-boot-mode)
-    -   [Connect to the Internet](#connect-to-the-internet)
-    -   [Update the system clock](#update-the-system-clock)
-    -   [Partition the disk(s)](#partition-the-disks)
-        -   [`/mnt/boot`](#mntboot)
-        -   [`[SWAP]`](#swap)
-        -   [`/mnt`](#mnt)
-        -   [Check and write](#check-and-write)
-    -   [Format the partitions](#format-the-partitions)
-    -   [Mount the file systems](#mount-the-file-systems)
--   [Installation](#installation)
-    -   [Select the mirrors](#select-the-mirrors)
-    -   [Install essential packages](#install-essential-packages)
--   [Configure the system](#configure-the-system)
-    -   [Fstab](#fstab)
-    -   [Chroot](#chroot)
-    -   [Time zone](#time-zone)
-    -   [Localization](#localization)
-    -   [Network configuration](#network-configuration)
-    -   [Root password](#root-password)
-    -   [Boot loader](#boot-loader)
--   [Reboot](#reboot)
--   [Epilogue](#epilogue)
+- [Prologue](#prologue)
+- [Pre-installation](#pre-installation)
+  - [Set the console keyboard layout](#set-the-console-keyboard-layout)
+  - [Verify the boot mode](#verify-the-boot-mode)
+  - [Connect to the Internet](#connect-to-the-internet)
+  - [Update the system clock](#update-the-system-clock)
+  - [Partition the disk(s)](#partition-the-disks)
+    - [`/mnt/boot`](#mntboot)
+    - [`[SWAP]`](#swap)
+    - [`/mnt`](#mnt)
+    - [Check and write](#check-and-write)
+  - [Format the partitions](#format-the-partitions)
+  - [Mount the file systems](#mount-the-file-systems)
+- [Installation](#installation)
+  - [Select the mirrors](#select-the-mirrors)
+  - [Install essential packages](#install-essential-packages)
+- [Configure the system](#configure-the-system)
+  - [Fstab](#fstab)
+  - [Chroot](#chroot)
+  - [Time zone](#time-zone)
+  - [Localization](#localization)
+  - [Network configuration](#network-configuration)
+  - [Root password](#root-password)
+  - [Boot loader](#boot-loader)
+- [Reboot](#reboot)
+- [Epilogue](#epilogue)
 
-## Preamble
+## Prologue
 
-To install Arch Linux, it is highly recommended to read [Arch Linux's Installation Guide] first, then try to install Arch Linux manually or with an installer. The official `archinstall` is nice.
+To install Arch Linux, it is highly recommended to read
+[Arch Linux's Installation Guide], then try to install Arch Linux manually or
+with an installer. The official `archinstall` is nice.
 
-Personally, I prefer to install Arch Linux step by step as this is a more customizable way. In the following instruction, I'll start from the [Set the console keyboard layout] section of Arch Linux's Installation Guide.
+Personally, I prefer to install Arch Linux step by step as this is a more
+customizable way. In the following instruction, I'll start from the
+[Set the console keyboard layout] section of Arch Linux's Installation Guide.
 
 [Arch Linux's Installation Guide]: https://wiki.archlinux.org/title/Installation_guide
 [Set the console keyboard layout]: https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout
@@ -103,9 +115,11 @@ console:
     # ip link
 ```
 
-The following assumes that the system connects to the Internet with Wi-Fi device `wlan0`.
+The following assumes that the system connects to the Internet with Wi-Fi device
+`wlan0`.
 
-There are many ways to search available Wi-Fis, and I personally prefer the following way.
+There are many ways to search available Wi-Fis, and I personally prefer the
+following way.
 
 ```
 console:
@@ -117,7 +131,8 @@ iwd:
     [iwd]# station wlan0 get-networks
 ```
 
-Now, connect to the Internet with `wpa_supplicant`. Note that `iwctl` and  `wpa_cli` suffice in general.
+Now, connect to the Internet with `wpa_supplicant`. Note that `iwctl` and
+`wpa_cli` suffice in general.
 
 ```
 console:
@@ -164,7 +179,8 @@ console:
 
 ### Partition the disk(s)
 
-To be clear, I use single-system machines, so I don't care about [*Dual boot with Windows*](https://wiki.archlinux.org/title/Dual_boot_with_Windows).
+To be clear, I use single-system machines, so I don't care about
+[_Dual boot with Windows_](https://wiki.archlinux.org/title/Dual_boot_with_Windows).
 
 Identify block devices with `fdisk`.
 
@@ -174,7 +190,8 @@ console:
     # fdisk -l
 ```
 
-The following assumes that the system is going to be installed in `/dev/nvme0n1`.
+The following assumes that the system is going to be installed in
+`/dev/nvme0n1`.
 
 ```
 console:
@@ -210,9 +227,11 @@ fdisk:
 
 #### `[SWAP]`
 
-To be honest, I don't know much about swap, but I know that I have a large hard disk. :laughing:
+To be honest, I don't know much about swap, but I know that I have a large hard
+disk. :laughing:
 
-So, I decide to make the swap partition as **1.5 times** large as the RAM, that is **24 GB**.
+So, I decide to make the swap partition as **1.5 times** large as the RAM, that
+is **24 GB**.
 
 ```
 fdisk:
@@ -288,7 +307,8 @@ console:
 
 ### Install essential packages
 
-Some of the following packages can be installed in the future, but I prefer to install them now.
+Some of the following packages can be installed in the future, but I prefer to
+install them now.
 
 ```
 console:
@@ -325,7 +345,8 @@ console:
 
 ### Localization
 
-Uncomment needed locales in `/etc/locale.gen`, then generate the locales. The following assumes that `en_US.UTF-8 UTF-8` has been uncommented.
+Uncomment needed locales in `/etc/locale.gen`, then generate the locales. The
+following assumes that `en_US.UTF-8 UTF-8` has been uncommented.
 
 ```
 `arch-chroot`ed console:
@@ -347,7 +368,8 @@ Set the `LANG` variable.
     LANG=en_US.UTF-8
 ```
 
-**Repeat [Set the console keyboard layout](#set-the-console-keyboard-layout) in the `arch-chroot`ed system if wanted.**
+**Repeat [Set the console keyboard layout](#set-the-console-keyboard-layout) in
+the `arch-chroot`ed system if wanted.**
 
 ### Network configuration
 
@@ -384,9 +406,11 @@ The following assumes that the hostname is set as `myhostname`.
 
 ### Boot loader
 
-I use `grub` and `efibootmgr`, which have been already installed in the [Install essential packages](#install-essential-packages) step.
+I use `grub` and `efibootmgr`, which have been already installed in the
+[Install essential packages](#install-essential-packages) step.
 
-For machines that have an Intel CPU, install `intel-ucode`; for those that have an AMD CPU, install `amd-ucode`.
+For machines that have an Intel CPU, install `intel-ucode`; for those that have
+an AMD CPU, install `amd-ucode`.
 
 ```
 `arch-chroot`ed console:
@@ -394,7 +418,7 @@ For machines that have an Intel CPU, install `intel-ucode`; for those that have 
     # pacman -S intel-ucode
 ```
 
-*Note: For multi-system users, `os-prober` may be needed.*
+_Tip: For multi-system users, `os-prober` may be needed._
 
 Install GRUB to the disk, then generate the main configuration file.
 
@@ -408,7 +432,8 @@ Install GRUB to the disk, then generate the main configuration file.
 
 ## Reboot
 
-Remember to remove the installation medium (e.g. USB flash drives).
+Remember to remove the installation medium (e.g. USB flash drives) before
+rebooting the computer.
 
 ```
 `arch-chroot`ed console:
@@ -423,4 +448,5 @@ console:
 
 ## Epilogue
 
-Now, Arch Linux is successfully installed on the laptop. I'll write a new blog post about setting up this machine.
+Now, Arch Linux is installed on the laptop. I'll write a new blog post about
+setting up this machine.
